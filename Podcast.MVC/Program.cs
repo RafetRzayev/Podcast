@@ -1,4 +1,5 @@
 using Podcast.DAL;
+using Podcast.BLL;
 
 namespace Podcast.MVC;
 
@@ -11,6 +12,7 @@ public class Program
         builder.Services.AddControllersWithViews();
 
         builder.Services.AddDalServices(builder.Configuration);
+        builder.Services.AddBllServices();
 
         var app = builder.Build();
 

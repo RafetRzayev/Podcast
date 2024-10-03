@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Podcast.DAL.DataContext;
 using Podcast.DAL.DataContext.Entities;
 using Podcast.DAL.Repositories.Contracts;
@@ -6,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace Podcast.DAL.Repositories;
 
-public class EfCoreRepository<TEntity> : IRepositoryAsync<TEntity> where TEntity : Entity
+public class EfCoreRepository<T> : IRepositoryAsync<T> where T : Entity
 {
     private readonly AppDbContext _dbContext;
 
@@ -15,41 +16,49 @@ public class EfCoreRepository<TEntity> : IRepositoryAsync<TEntity> where TEntity
         _dbContext = dbContext;
     }
 
-    public virtual async Task<TEntity?> GetAsync(int id)
+    public virtual async Task<T?> GetAsync(int id)
     {
-       var result = await _dbContext.Set<TEntity>().FindAsync(id);
+       var result = await _dbContext.Set<T>().FindAsync(id);
 
         return result;
     }
 
-    public virtual async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate)
+    public virtual async Task<T?> GetAsync(Expression<Func<T, bool>>? predicate = null,
+                                                 Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+                                                 Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null)
+    
     {
-       var result = await _dbContext.Set<TEntity>().FirstOrDefaultAsync(predicate);
+       var result = await _dbContext.Set<T>().FirstOrDefaultAsync(predicate);
 
         return result;
     }
 
-    public virtual async Task<IEnumerable<TEntity>> GetListAsync(Expression<Func<TEntity, bool>>? predicate = null)
+    public virtual async Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>>? predicate = null,
+                                                           Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+                                                           Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null)
     {
-        if (predicate == null)
-            return await _dbContext.Set<TEntity>().ToListAsync();
+        IQueryable<T> query = _dbContext.Set<T>();
 
-        var result = await _dbContext.Set<TEntity>().Where(predicate).ToListAsync();
+        if (include != null) query = include(query);
 
-        return result;
+        if (orderBy != null) query = orderBy(query);
+
+        if (predicate != null) query = query.Where(predicate);
+
+        return  await query.ToListAsync();
     }
 
-    public virtual Task<TEntity> CreateAsync(TEntity entity)
+    public virtual Task<T> CreateAsync(T entity)
     {
         throw new NotImplementedException();
     }
 
-    public virtual Task<TEntity> RemoveAsync(TEntity entity)
+    public virtual Task<T> RemoveAsync(T entity)
     {
         throw new NotImplementedException();
     }
 
-    public virtual Task<TEntity> UpdateAsync(TEntity entity)
+    public virtual Task<T> UpdateAsync(T entity)
     {
         throw new NotImplementedException();
     }

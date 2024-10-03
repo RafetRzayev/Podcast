@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Podcast.DAL.DataContext;
 
@@ -11,9 +12,11 @@ using Podcast.DAL.DataContext;
 namespace Podcast.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241002153112_SpeakerSeedData")]
+    partial class SpeakerSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -250,36 +253,6 @@ namespace Podcast.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Professions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Education"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Artist"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Influencer"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Makler"
-                        });
                 });
 
             modelBuilder.Entity("Podcast.DAL.DataContext.Entities.Speaker", b =>
@@ -359,7 +332,7 @@ namespace Podcast.DAL.Migrations
                         {
                             Id = 6,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "5.jpg",
+                            ImageUrl = "6.jpg",
                             LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Rizvan"
                         });
@@ -386,44 +359,6 @@ namespace Podcast.DAL.Migrations
                     b.HasIndex("SpeakerId");
 
                     b.ToTable("SpeakerProfessions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ProfessionId = 1,
-                            SpeakerId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ProfessionId = 2,
-                            SpeakerId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ProfessionId = 3,
-                            SpeakerId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ProfessionId = 4,
-                            SpeakerId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ProfessionId = 4,
-                            SpeakerId = 5
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ProfessionId = 3,
-                            SpeakerId = 1
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -21,9 +21,9 @@
                             <div class="owl-carousel-info">
                                 <h4 class="mb-2">@speaker.Name</h4>
 
-                                @foreach (var speakerProfession in speaker.SpeakerProfessions ?? [])
+                                @foreach (var profession in speaker.Professions ?? [])
                                 {
-                                    <span class="badge">@speakerProfession.Profession?.Name</span>
+                                    <span class="badge">@profession?.Name</span>
                                 }
                             </div>
 

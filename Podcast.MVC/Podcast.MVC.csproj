@@ -14,11 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Podcast.DAL\Podcast.DAL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <ProjectReference Include="..\Podcast.BLL\Podcast.BLL.csproj" />
   </ItemGroup>
 
 </Project>
