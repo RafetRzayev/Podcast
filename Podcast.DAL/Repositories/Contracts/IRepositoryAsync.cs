@@ -7,7 +7,7 @@ namespace Podcast.DAL.Repositories.Contracts;
 public interface IRepositoryAsync<T> where T : Entity
 {
     Task<T?> GetAsync(int id);
-    Task<T?> GetAsync(Expression<Func<T, bool>>? predicate = null,
+    Task<T?> GetAsync(Expression<Func<T, bool>> predicate,
                       Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
                       Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null);
     Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>>? predicate = null, 

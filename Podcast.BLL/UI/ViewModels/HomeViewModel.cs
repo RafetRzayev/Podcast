@@ -1,7 +1,7 @@
 ﻿using Podcast.BLL.ViewModels.SpeakerViewModels;
 using Podcast.DAL.DataContext.Entities;
 
-namespace Podcast.MVC.Models;
+namespace Podcast.BLL.UI.ViewModels;
 
 public class HomeViewModel
 {

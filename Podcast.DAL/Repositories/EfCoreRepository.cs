@@ -23,14 +23,20 @@ public class EfCoreRepository<T> : IRepositoryAsync<T> where T : Entity
         return result;
     }
 
-    public virtual async Task<T?> GetAsync(Expression<Func<T, bool>>? predicate = null,
+    public virtual async Task<T?> GetAsync(Expression<Func<T, bool>> predicate,
                                                  Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
                                                  Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null)
     
     {
-       var result = await _dbContext.Set<T>().FirstOrDefaultAsync(predicate);
+        IQueryable<T> query = _dbContext.Set<T>();
 
-        return result;
+        if (include != null) query = include(query);
+
+        if (orderBy != null) query = orderBy(query);
+
+        query = query.Where(predicate);
+
+        return await query.FirstOrDefaultAsync();
     }
 
     public virtual async Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>>? predicate = null,
@@ -48,18 +54,30 @@ public class EfCoreRepository<T> : IRepositoryAsync<T> where T : Entity
         return  await query.ToListAsync();
     }
 
-    public virtual Task<T> CreateAsync(T entity)
+    public virtual async Task<T> CreateAsync(T entity)
     {
-        throw new NotImplementedException();
+        var entityEntry = await _dbContext.Set<T>().AddAsync(entity);
+       
+        await _dbContext.SaveChangesAsync();
+
+        return entityEntry.Entity;
     }
 
-    public virtual Task<T> RemoveAsync(T entity)
+    public virtual async Task<T> RemoveAsync(T entity)
     {
-        throw new NotImplementedException();
+        var entityEntry = _dbContext.Set<T>().Remove(entity);
+
+        await _dbContext.SaveChangesAsync();
+
+        return entityEntry.Entity;
     }
 
-    public virtual Task<T> UpdateAsync(T entity)
+    public virtual async Task<T> UpdateAsync(T entity)
     {
-        throw new NotImplementedException();
+        var entityEntry = _dbContext.Set<T>().Update(entity);
+
+        await _dbContext.SaveChangesAsync();
+
+        return entityEntry.Entity;
     }
 }

@@ -1,40 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Podcast.BLL.Services.Contracts;
-using Podcast.DAL.Repositories.Contracts;
-using Podcast.MVC.Models;
+using Podcast.BLL.UI.Services.Contracts;
 
 namespace Podcast.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ISpeakerRepository _speakerRepository;
-        private readonly ISpeakerService _speakerService;
+        private readonly IHomeService _homeService;
 
-        public HomeController(ISpeakerRepository speakerRepository, ISpeakerService speakerService)
+        public HomeController(IHomeService homeService)
         {
-            _speakerRepository = speakerRepository;
-            _speakerService = speakerService;
+            _homeService = homeService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var speaker = await _speakerService.GetAsync(1);
+            var viewModel = await _homeService.GetHomeViewModel();
 
-            return Json(speaker);
-
-            //var speakerList = await _speakerRepository.GetListAsync(include: x => x.Include(y => y.SpeakerProfessions!).ThenInclude(z => z.Profession!),
-            //    orderBy: x => x.OrderBy(y => y.Name));
-
-            var speakerList = await _speakerService.GetSpeakerListAsync(include: x => x.Include(y => y.SpeakerProfessions!).ThenInclude(z => z.Profession!),
-                orderBy: x => x.OrderBy(y => y.Name));
-
-            var homeViewModel = new HomeViewModel()
-            {
-                Speakers = speakerList.ToList()
-            };
-
-            return  View(homeViewModel);
+            return  View(viewModel);
         }
     }
 }
