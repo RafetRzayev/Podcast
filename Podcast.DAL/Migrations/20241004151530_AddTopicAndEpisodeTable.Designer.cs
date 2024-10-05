@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Podcast.DAL.DataContext;
 
@@ -11,9 +12,11 @@ using Podcast.DAL.DataContext;
 namespace Podcast.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241004151530_AddTopicAndEpisodeTable")]
+    partial class AddTopicAndEpisodeTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,40 +287,6 @@ namespace Podcast.DAL.Migrations
                     b.HasIndex("TopicId");
 
                     b.ToTable("Episodes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CoverUrl = "1.jpg",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Bu sad wdf",
-                            DownloadCount = 234,
-                            DurationInMinute = 12,
-                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LikeCount = 223,
-                            MusicUrl = "1.mp3",
-                            SpeakerId = 1,
-                            Title = "Modern",
-                            TopicId = 1,
-                            ViewCount = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CoverUrl = "2.jpg",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "JGCHVhkj",
-                            DownloadCount = 57,
-                            DurationInMinute = 60,
-                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LikeCount = 234,
-                            MusicUrl = "2.mp3",
-                            SpeakerId = 2,
-                            Title = "Old",
-                            TopicId = 2,
-                            ViewCount = 0
-                        });
                 });
 
             modelBuilder.Entity("Podcast.DAL.DataContext.Entities.Profession", b =>
@@ -554,40 +523,6 @@ namespace Podcast.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Topics");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CoverUrl = "1.jpg",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Education"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CoverUrl = "2.jpg",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Sport"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CoverUrl = "3.jpg",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Music"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CoverUrl = "4.jpg",
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Culture"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

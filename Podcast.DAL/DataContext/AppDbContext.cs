@@ -13,6 +13,9 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Speaker> Speakers { get; set; }
     public DbSet<Profession> Professions { get; set; }
     public DbSet<SpeakerProfession> SpeakerProfessions { get; set; }
+    public DbSet<Topic> Topics { get; set; }
+    public DbSet<Episode> Episodes { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -43,6 +46,20 @@ public class AppDbContext : IdentityDbContext<AppUser>
             new SpeakerProfession { Id = 5, SpeakerId = 5, ProfessionId = 4 },
             new SpeakerProfession { Id = 6, SpeakerId = 1, ProfessionId = 3 },
         ]);
+
+        builder.Entity<Topic>().HasData(
+            [   
+                new Topic{Id=1, Name = "Education", CoverUrl = "1.jpg"},
+                new Topic{Id=2, Name = "Sport", CoverUrl = "2.jpg"},
+                new Topic{Id=3, Name = "Music", CoverUrl = "3.jpg"},
+                new Topic{Id=4, Name = "Culture", CoverUrl = "4.jpg"},
+            ]);
+
+        builder.Entity<Episode>().HasData(
+            [
+                new Episode{Id=1, Title = "Modern",Description ="Bu sad wdf", CoverUrl="1.jpg", LikeCount=223, DownloadCount=234, DurationInMinute=12, MusicUrl="1.mp3", SpeakerId = 1, TopicId=1},
+                new Episode{Id=2, Title = "Old",Description ="JGCHVhkj", CoverUrl="2.jpg", LikeCount=234, DownloadCount=57, DurationInMinute=60, MusicUrl="2.mp3", SpeakerId = 2, TopicId=2},
+            ]);
 
         base.OnModelCreating(builder);
     }

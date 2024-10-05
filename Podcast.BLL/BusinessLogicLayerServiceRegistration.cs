@@ -14,7 +14,10 @@ public static class BusinessLogicLayerServiceRegistration
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddScoped(typeof(ICrudService<,,,>), typeof(CrudManager<,,,>));
         services.AddScoped<ISpeakerService, SpeakerManager>();
+        services.AddScoped<IEpisodeService, EpisodeManager>();
+        services.AddScoped<ITopicService, TopicManager>();
         services.AddScoped<IHomeService, HomeManager>();
+        services.AddScoped<IFileService, FileManager>();
 
         return services;
     }

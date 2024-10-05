@@ -1,5 +1,6 @@
 using Podcast.DAL;
 using Podcast.BLL;
+using Podcast.BLL.Data;
 
 namespace Podcast.MVC;
 
@@ -13,6 +14,7 @@ public class Program
 
         builder.Services.AddDalServices(builder.Configuration);
         builder.Services.AddBllServices();
+        Constants.EpisodeImagePath = Path.Combine(builder.Environment.WebRootPath, "images", "podcast");
 
         var app = builder.Build();
 

@@ -2,7 +2,6 @@
 
 namespace Podcast.DAL.Repositories.Contracts;
 
-public interface ISpeakerRepository : IRepositoryAsync<Speaker>
+public interface ITopicRepository : IRepositoryAsync<Topic>
 {
-    Speaker OnlySpeaker();
 }

@@ -16,4 +16,5 @@ public class Speaker :  Timestample
     public required string Name { get; set; }
     public required string ImageUrl {  get; set; }
     public List<SpeakerProfession>? SpeakerProfessions { get; set; }
+    public List<Episode>? Episodes { get; set; }
 }
