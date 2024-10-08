@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Podcast.BLL.ViewModels.EpisodeViewModels;
+using Podcast.BLL.ViewModels.ProfessionViewModels;
+using Podcast.BLL.ViewModels.SpeakerProfessionViewModels;
 using Podcast.BLL.ViewModels.SpeakerViewModels;
 using Podcast.BLL.ViewModels.TopicViewModels;
 using Podcast.DAL.DataContext.Entities;
@@ -15,7 +17,9 @@ public class AutoMapperProfile : Profile
             opt => opt.MapFrom(src => src.SpeakerProfessions!.Select(sp => sp.Profession)))
             .ReverseMap();
 
-        CreateMap<Speaker, SpeakerCreateViewModel>().ReverseMap();
+        CreateMap<SpeakerCreateViewModel, Speaker>()
+            .ForMember(dest=>dest.SpeakerProfessions, 
+            opt=>opt.MapFrom(src=>src.ProfessionIds.Select(x=>new SpeakerProfession { ProfessionId = x}))).ReverseMap();
         CreateMap<Speaker, SpeakerUpdateViewModel>().ReverseMap();
 
 
@@ -28,5 +32,9 @@ public class AutoMapperProfile : Profile
         CreateMap<EpisodeViewModel, Episode>().ReverseMap();
         CreateMap<EpisodeCreateViewModel, Episode>().ReverseMap();
         CreateMap<EpisodeUpdateViewModel, Episode>().ReverseMap();
+
+        CreateMap<SpeakerProfessionViewModel, SpeakerProfession>().ReverseMap();
+        CreateMap<SpeakerProfessionCreateViewModel, SpeakerProfession>().ReverseMap();
+        CreateMap<SpeakerProfessionUpdateViewModel, SpeakerProfession>().ReverseMap();
     }
 }

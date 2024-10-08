@@ -15,7 +15,9 @@ public static class BusinessLogicLayerServiceRegistration
         services.AddScoped(typeof(ICrudService<,,,>), typeof(CrudManager<,,,>));
         services.AddScoped<ISpeakerService, SpeakerManager>();
         services.AddScoped<IEpisodeService, EpisodeManager>();
+        services.AddScoped<IProfessionService, ProfessionManager>();
         services.AddScoped<ITopicService, TopicManager>();
+        services.AddScoped<ISpeakerProfessionService, SpeakerProfessionManager>();
         services.AddScoped<IHomeService, HomeManager>();
         services.AddScoped<IFileService, FileManager>();
 

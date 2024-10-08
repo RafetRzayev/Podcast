@@ -21,6 +21,7 @@ public static class DataAccessLayerServiceRegistration
         services.AddScoped<ISpeakerRepository, SpeakerRepository>();
         services.AddScoped<ITopicRepository, TopicRepository>();
         services.AddScoped<IEpisodeRepository, EpisodeRepository>();
+        services.AddScoped<ISpeakerProfessionRepository, SpeakerProfessionRepository>();
 
         return services;
     }
