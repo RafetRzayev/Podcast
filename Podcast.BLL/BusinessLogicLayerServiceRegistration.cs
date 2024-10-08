@@ -20,6 +20,7 @@ public static class BusinessLogicLayerServiceRegistration
         services.AddScoped<ISpeakerProfessionService, SpeakerProfessionManager>();
         services.AddScoped<IHomeService, HomeManager>();
         services.AddScoped<IFileService, FileManager>();
+        services.AddScoped<ICloudinaryService, CloudinaryManager>();
 
         return services;
     }

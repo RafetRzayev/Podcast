@@ -25,14 +25,25 @@ namespace Podcast.ADMIN.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var professionList = await _professionService.GetListAsync();
-            var professionSelectListItems = new List<SelectListItem>();
-
-            professionList.ToList().ForEach(x => professionSelectListItems.Add(new SelectListItem(x.Name, x.Id.ToString())));
-            var createModel = new SpeakerCreateViewModel() { Name = "", ImageFile = null };
-            createModel.Professions = professionSelectListItems;
+            var createModel = await _speakerService.GetSpeakerCreateViewModelAsync(new SpeakerCreateViewModel() { ImageFile = null!, Name = "" });
 
             return View(createModel);            
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(SpeakerCreateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var createModel = await _speakerService.GetSpeakerCreateViewModelAsync(model);
+
+                return View(createModel);
+            }
+
+            var result = await _speakerService.CreateAsync(model);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

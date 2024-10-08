@@ -1,22 +1,27 @@
 ﻿@model SpeakerCreateViewModel
+
 <div class="col-md-6 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Default form</h4>
-            <p class="card-description">
-                Basic form layout
-            </p>
-            <form class="forms-sample" method="post">
+            <h4 class="card-title">Create speaker</h4>
+            <form class="forms-sample" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="exampleInputUsername1">Name</label>
+                    <label>Name</label>
                     <input asp-for="Name" class="form-control" placeholder="name">
+                    <span asp-validation-for="Name"></span>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <select asp-items="Model.Professions" asp-for="ProfessionIds" class="form-control" id="exampleInputEmail1" placeholder="Email"></select>
+                    <label>Select image</label>
+                    <input asp-for="ImageFile" class="form-control">
+                    <span asp-validation-for="ImageFile"></span>
                 </div>
-               <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <button class="btn btn-light">Cancel</button>
+                <div class="form-group">
+                    <label>Select profession(s)</label>
+                    <select asp-items="Model.Professions" asp-for="ProfessionIds" class="form-control" placeholder="profession"></select>
+                    <span asp-validation-for="ProfessionIds"></span>
+                </div>
+               <button type="submit" class="btn btn-primary mr-2">Create</button>
+               <a asp-controller="speaker" asp-action="index" class="btn btn-light">Cancel</a>
             </form>
         </div>
     </div>
