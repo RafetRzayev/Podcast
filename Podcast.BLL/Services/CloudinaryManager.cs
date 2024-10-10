@@ -15,7 +15,37 @@ namespace Podcast.BLL.Services
             _configuration = configuration;
         }
 
-        public async Task<string> FileCreateAsync(IFormFile file)
+        public async Task<string> AudioCreateAsync(IFormFile file)
+        {
+            if (file == null) throw new ArgumentNullException(nameof(file));
+
+            string fileName = string.Concat(Guid.NewGuid(), file.FileName.Substring(file.FileName.LastIndexOf('.')));
+            var myAccount = new Account
+            {
+                ApiKey = _configuration["CloudinarySettings:APIKey"],
+                ApiSecret = _configuration["CloudinarySettings:APISecret"],
+                Cloud = _configuration["CloudinarySettings:CloudName"]
+            };
+
+            Cloudinary _cloudinary = new Cloudinary(myAccount);
+            _cloudinary.Api.Secure = true;
+            var uploadResult = new RawUploadResult();
+
+            if (file.Length > 0)
+            {
+                using var stream = file.OpenReadStream();
+                var uploadParams = new RawUploadParams
+                {
+                    File = new FileDescription(fileName, stream),
+                };
+                uploadResult = await _cloudinary.UploadAsync(uploadParams);
+            }
+            string url = uploadResult.SecureUrl.ToString();
+
+            return url;
+        }
+
+        public async Task<string> ImageCreateAsync(IFormFile file)
         {
             if (file == null) throw new ArgumentNullException(nameof(file));
 

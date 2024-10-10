@@ -283,7 +283,7 @@ namespace Podcast.DAL.Migrations
 
                     b.HasIndex("TopicId");
 
-                    b.ToTable("Episodes");
+                    b.ToTable("Episodes", (string)null);
 
                     b.HasData(
                         new
@@ -346,7 +346,7 @@ namespace Podcast.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Professions");
+                    b.ToTable("Professions", (string)null);
 
                     b.HasData(
                         new
@@ -409,7 +409,7 @@ namespace Podcast.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Speakers");
+                    b.ToTable("Speakers", (string)null);
 
                     b.HasData(
                         new
@@ -482,7 +482,7 @@ namespace Podcast.DAL.Migrations
 
                     b.HasIndex("SpeakerId");
 
-                    b.ToTable("SpeakerProfessions");
+                    b.ToTable("SpeakerProfessions", (string)null);
 
                     b.HasData(
                         new
@@ -553,7 +553,7 @@ namespace Podcast.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Topics");
+                    b.ToTable("Topics", (string)null);
 
                     b.HasData(
                         new

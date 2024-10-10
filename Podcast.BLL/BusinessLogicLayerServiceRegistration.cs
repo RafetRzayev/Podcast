@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NetCoreAudio;
+using NetCoreAudio.Interfaces;
 using Podcast.BLL.Services;
 using Podcast.BLL.Services.Contracts;
 using Podcast.BLL.UI.Services;
@@ -21,6 +23,8 @@ public static class BusinessLogicLayerServiceRegistration
         services.AddScoped<IHomeService, HomeManager>();
         services.AddScoped<IFileService, FileManager>();
         services.AddScoped<ICloudinaryService, CloudinaryManager>();
+        services.AddScoped<IPlayer, Player>();
+        services.AddScoped<IAudioService, AudioManager>();
 
         return services;
     }

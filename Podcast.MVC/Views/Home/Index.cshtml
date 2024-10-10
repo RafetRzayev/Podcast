@@ -22,7 +22,7 @@
                     @foreach(var speaker in speakers)
                     {
                         <div class="owl-carousel-info-wrap item">
-                            <img src="~/images/profile/@speaker.ImageUrl" class="owl-carousel-image img-fluid" alt="">
+                            <img src="@speaker.ImageUrl" class="owl-carousel-image img-fluid" alt="">
 
                             <div class="owl-carousel-info">
                                 <h4 class="mb-2">@speaker.Name</h4>
@@ -63,7 +63,7 @@
                     <h4 class="section-title">Lastest episodes</h4>
                 </div>
             </div>
-
+         
             @foreach (var item in episodes)
             {
                 <div class="col-lg-6 col-12 mb-4 mb-lg-0">
@@ -72,14 +72,17 @@
                         <div class="custom-block-icon-wrap">
                             <div class="section-overlay"></div>
                             <a href="detail-page.html" class="custom-block-image-wrap">
-                                <img src="~/images/podcast/@item.CoverUrl" class="custom-block-image img-fluid" alt="">
+                                <img src="@item.CoverUrl" class="custom-block-image img-fluid" alt="">
 
-                                <a href="#" class="custom-block-icon">
+                                <a asp-controller="home" asp-action="play" class="custom-block-icon">
                                     <i class="bi-play-fill"></i>
                                 </a>
                             </a>
                         </div>
-
+                            <audio controls>
+                                <source src="@item.MusicUrl" type="audio/mp3">
+                                Your browser does not support the audio element.
+                            </audio>
                         <div class="mt-2">
                             <a href="#" class="btn custom-btn">
                                 Subscribe
@@ -104,7 +107,7 @@
                         </h5>
 
                         <div class="profile-block d-flex">
-                            <img src="~/images/profile/@item.Speaker?.ImageUrl" class="profile-block-image img-fluid" alt="">
+                            <img src="@item.Speaker?.ImageUrl" class="profile-block-image img-fluid" alt="">
 
                             <p>
                                 @item.Speaker?.Name

@@ -45,5 +45,28 @@ namespace Podcast.ADMIN.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> Update(int id)
+        {
+            var updateModel = await _speakerService.GetSpeakerUpdateViewModelAsync(id);
+
+            return View(updateModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(SpeakerUpdateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var updateModel = await _speakerService.GetSpeakerUpdateViewModelAsync(model.Id);
+
+                return View(updateModel);
+            }
+
+            var result = await _speakerService.UpdateAsync(model);
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

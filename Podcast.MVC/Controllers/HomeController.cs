@@ -12,13 +12,15 @@ namespace Podcast.MVC.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ISpeakerService _speakerService;
         private readonly ISpeakerProfessionService _speakerProfessionService;
+        private readonly IAudioService _audioService;
 
-        public HomeController(IHomeService homeService, IWebHostEnvironment webHostEnvironment, ISpeakerService speakerService, ISpeakerProfessionService speakerProfessionService)
+        public HomeController(IHomeService homeService, IWebHostEnvironment webHostEnvironment, ISpeakerService speakerService, ISpeakerProfessionService speakerProfessionService, IAudioService audioService)
         {
             _homeService = homeService;
             _webHostEnvironment = webHostEnvironment;
             _speakerService = speakerService;
             _speakerProfessionService = speakerProfessionService;
+            _audioService = audioService;
         }
 
         public async Task<IActionResult> Index()
@@ -52,20 +54,29 @@ namespace Podcast.MVC.Controllers
             return Json(result);
         }
 
-        public async Task<IActionResult> UpdateSpeaker()
-        {
-            var speakerUpdateViewModel = new SpeakerUpdateViewModel
-            { Id = 13, ImageFile = null, Name = "Aslan2", ImageUrl = "1.jpg", ProfessionIds = [1, 2, 3] };
+        //public async Task<IActionResult> UpdateSpeaker()
+        //{
+        //    var speakerUpdateViewModel = new SpeakerUpdateViewModel
+        //    { Id = 13, ImageFile = null, Name = "Aslan2", ImageUrl = "1.jpg", ProfessionIds = [1, 2, 3] };
 
-            var result = await _speakerService.UpdateAsync(speakerUpdateViewModel);
+        //    var result = await _speakerService.UpdateAsync(speakerUpdateViewModel);
 
-            return Json(result);
-        }
+        //    return Json(result);
+        //}
 
         public async Task<IActionResult> CreateSpeakerProfession()
         {
             var createModel = new SpeakerProfessionCreateViewModel { SpeakerId = 1, ProfessionId = 1, };
             var result = await _speakerProfessionService.CreateAsync(createModel);
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Play()
+        {
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "1.mp3");
+
+            await _audioService.Play(path);
 
             return RedirectToAction("Index");
         }
